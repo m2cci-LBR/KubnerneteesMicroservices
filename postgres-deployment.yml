@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: db-deployment
+   labels:
+      app: myapp
+      type: database
+      
+spec:
+   template:
+      metadata:
+         name: db-prod
+         labels:
+            app: myapp
+            type: postgres-db
+      spec:
+         containers:
+            - name: postgres
+              image: postgres
+              ports:
+                 - containerPort: 5432
+                 
+   replicas: 1
+   selector:
+      matchLabels:
+         app: myapp
+         type: postgres-db
